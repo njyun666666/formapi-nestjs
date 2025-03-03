@@ -10,6 +10,7 @@ import { LoginModule } from './modules/login/login.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import { LoginGuard } from './modules/login/login.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -25,12 +26,10 @@ import { LoginGuard } from './modules/login/login.guard';
   controllers: [LoginController],
   providers: [
     {
-      provide: 'APP_GUARD',
+      provide: APP_GUARD,
       useClass: LoginGuard,
     },
     AppService,
-    ApiConfigService,
-    LoginService,
   ],
 })
 export class AppModule {}
