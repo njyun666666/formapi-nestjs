@@ -1,5 +1,6 @@
 import { AppService } from './app.service';
 import { CommonModule } from './common/common.module';
+import { RolesGuard } from './common/guards/roles.guard';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import { LoginController } from './modules/login/login.controller';
@@ -24,6 +25,10 @@ import { APP_GUARD } from '@nestjs/core';
     {
       provide: APP_GUARD,
       useClass: LoginGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
     AppService,
   ],

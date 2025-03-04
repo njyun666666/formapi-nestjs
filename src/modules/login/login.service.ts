@@ -33,11 +33,9 @@ export class LoginService {
     return {
       access_token: await this.jwtService.signAsync(payload, {
         secret: this.apiConfigService.app?.jwt.secret,
-        expiresIn: '1h',
+        expiresIn: '7d',
       }),
       refresh_token: uuid(),
     };
-
-    // return { access_token: 'test', refresh_token: 'refresh' };
   }
 }

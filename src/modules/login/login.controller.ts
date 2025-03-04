@@ -10,6 +10,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Public } from 'src/common/decorators/public.decorator';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { Role } from 'src/common/enums/role.enum';
 
 @Public()
 @Controller('login')
@@ -22,6 +24,7 @@ export class LoginController {
     return this.loginService.login(data);
   }
 
+  // @Roles(Role.Admin, Role.User)
   @Get('test')
   test() {
     return 'a';
