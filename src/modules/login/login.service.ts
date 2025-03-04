@@ -1,6 +1,6 @@
 import { ApiConfigService } from './../../config/api-config.service';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { uuid } from 'src/common/utils/uuid';
 

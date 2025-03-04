@@ -1,3 +1,4 @@
+import { LoginDto } from './dto/login.dto';
 import { LoginService } from './login.service';
 import {
   Body,
@@ -8,10 +9,9 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { LoginDto } from './dto/login.dto';
-import { LoginGuard } from './login.guard';
 import { Public } from 'src/common/decorators/public.decorator';
 
+@Public()
 @Controller('login')
 export class LoginController {
   constructor(private loginService: LoginService) {}
@@ -22,8 +22,6 @@ export class LoginController {
     return this.loginService.login(data);
   }
 
-  //   @UseGuards(LoginGuard)
-  @Public()
   @Get('test')
   test() {
     return 'a';
