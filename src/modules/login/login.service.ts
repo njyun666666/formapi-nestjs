@@ -1,6 +1,6 @@
 import { ApiConfigService } from './../../config/api-config.service';
 import { JwtPayload, LoginDto } from './dto/login.dto';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Scope, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from 'src/common/enums/role.enums';
 import { sha256 } from 'src/common/utils/encoding';
@@ -8,7 +8,7 @@ import { uuid } from 'src/common/utils/uuid';
 import { TbOrgUser } from 'src/entities/TbOrgUser.entity';
 import { DataSource } from 'typeorm';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class LoginService {
   user: JwtPayload;
 
