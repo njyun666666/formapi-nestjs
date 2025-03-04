@@ -1,41 +1,48 @@
 import { ApiConfigService } from './../../config/api-config.service';
-import { LoginDto } from './dto/login.dto';
+import { JwtPayload, LoginDto } from './dto/login.dto';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Role } from 'src/common/enums/role.enums';
+import { sha256 } from 'src/common/utils/encoding';
 import { uuid } from 'src/common/utils/uuid';
+import { TbOrgUser } from 'src/entities/TbOrgUser.entity';
+import { DataSource } from 'typeorm';
 
 @Injectable()
 export class LoginService {
+  user: JwtPayload;
+
   constructor(
     private jwtService: JwtService,
     private apiConfigService: ApiConfigService,
+    private dataSource: DataSource,
   ) {}
 
-  private readonly users: LoginDto[] = [
-    {
-      email: 'admin@example.com',
-      password: 'demo123456',
-    },
-  ];
-
-  findOne(email: string): LoginDto | undefined {
-    return this.users.find((user) => user.email === email);
-  }
-
   async login(data: LoginDto) {
-    const user = this.findOne(data.email);
-    if (user?.password !== data.password) {
+    const tbOrgUser = this.dataSource.getRepository(TbOrgUser);
+    const user = await tbOrgUser.findOneBy({ Email: data.email });
+    const apiKey = this.apiConfigService.app!.key.formApi;
+    const password = sha256(data.password, apiKey);
+
+    if (user?.Password !== password) {
       throw new UnauthorizedException();
     }
 
-    const payload = { sub: data.email, username: 'admin' };
+    const payload: JwtPayload = {
+      sub: user.Name,
+      uid: user.Uid,
+      photoUrl: user.PhotoUrl,
+      role: [],
+    };
+
+    const refresh_token = uuid();
 
     return {
       access_token: await this.jwtService.signAsync(payload, {
         secret: this.apiConfigService.app?.jwt.secret,
         expiresIn: '7d',
       }),
-      refresh_token: uuid(),
+      refresh_token: refresh_token,
     };
   }
 }

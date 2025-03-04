@@ -1,6 +1,7 @@
 import { AppService } from './app.service';
 import { CommonModule } from './common/common.module';
 import { RolesGuard } from './common/guards/roles.guard';
+import { ApiConfigService } from './config/api-config.service';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import { LoginController } from './modules/login/login.controller';
@@ -9,6 +10,7 @@ import { LoginModule } from './modules/login/login.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -18,6 +20,21 @@ import { APP_GUARD } from '@nestjs/core';
       load: [appConfig, databaseConfig],
     }),
     CommonModule,
+    TypeOrmModule.forRootAsync({
+      imports: [CommonModule],
+      useFactory: (apiConfigService: ApiConfigService) => ({
+        type: 'mysql',
+        host: apiConfigService.database?.host,
+        port: apiConfigService.database?.port,
+        username: apiConfigService.database?.user,
+        password: apiConfigService.database?.password,
+        database: apiConfigService.database?.database,
+        synchronize: false,
+        entities: [__dirname + '/entities/**/*.entity{.ts,.js}'],
+        autoLoadEntities: true,
+      }),
+      inject: [ApiConfigService],
+    }),
     LoginModule,
   ],
   controllers: [LoginController],
@@ -33,4 +50,6 @@ import { APP_GUARD } from '@nestjs/core';
     AppService,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {}
+}

@@ -1,17 +1,7 @@
 import { LoginDto } from './dto/login.dto';
 import { LoginService } from './login.service';
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { Public } from 'src/common/decorators/public.decorator';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { Role } from 'src/common/enums/role.enum';
 
 @Public()
 @Controller('login')
@@ -25,8 +15,8 @@ export class LoginController {
   }
 
   // @Roles(Role.Admin, Role.User)
-  @Get('test')
-  test() {
-    return 'a';
-  }
+  // @Get('test')
+  // test() {
+  //   return 'a';
+  // }
 }

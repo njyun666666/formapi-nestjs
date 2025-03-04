@@ -1,4 +1,6 @@
 import { ApiConfigService } from './../../config/api-config.service';
+import { JwtPayload } from './dto/login.dto';
+import { LoginService } from './login.service';
 import {
   CanActivate,
   ExecutionContext,
@@ -16,6 +18,7 @@ export class LoginGuard implements CanActivate {
     private jwtService: JwtService,
     private apiConfigService: ApiConfigService,
     private reflector: Reflector,
+    private loginService: LoginService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -35,11 +38,12 @@ export class LoginGuard implements CanActivate {
     }
 
     try {
-      const payload = await this.jwtService.verifyAsync(token, {
+      const payload: JwtPayload = await this.jwtService.verifyAsync(token, {
         secret: this.apiConfigService.app?.jwt.secret,
       });
 
-      request['user'] = payload;
+      this.loginService.user = payload;
+      // request['user'] = payload;
     } catch {
       throw new UnauthorizedException();
     }
