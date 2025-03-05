@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as dayjs from 'dayjs';
-import { Menu } from 'src/common/enums/meun.enum';
-import { Role } from 'src/common/enums/role.enums';
+import { MenuEnum } from 'src/common/enums/meun.enum';
+import { RoleEnum } from 'src/common/enums/role.enums';
 import { sha256 } from 'src/common/utils/encoding';
 import { uuid } from 'src/common/utils/uuid';
 import { TbMenu } from 'src/entities/TbMenu';
@@ -48,8 +48,8 @@ export class LoginService {
       sub: user.name,
       uid: user.uid,
       photoUrl: user.photoUrl,
-      role: user.tbOrgRoles.map((item) => item.rid as Role),
-      menu: menus.map((item) => item.menuId as Menu),
+      role: user.tbOrgRoles.map((item) => item.rid as RoleEnum),
+      menu: menus.map((item) => item.menuId as MenuEnum),
     };
 
     const refresh = new TbRefreshToken();

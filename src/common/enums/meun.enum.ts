@@ -1,4 +1,4 @@
-export enum Menu {
+export enum MenuEnum {
   PageHome = 'be001d7baf21420c75d3335ff71d6663',
   Auth = 'a57c380bb1b8dcc7ac82e8517a4ecbb6',
   AuthMenu = '72fe7fd63df3166bbd272ceca5eae970',
