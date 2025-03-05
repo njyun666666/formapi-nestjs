@@ -8,10 +8,8 @@ import { uuid } from 'src/common/utils/uuid';
 import { TbOrgUser } from 'src/entities/TbOrgUser.entity';
 import { DataSource } from 'typeorm';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class LoginService {
-  user: JwtPayload;
-
   constructor(
     private jwtService: JwtService,
     private apiConfigService: ApiConfigService,

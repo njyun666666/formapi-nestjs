@@ -16,7 +16,7 @@ export class LoginController {
 
   // @Roles(Role.Admin, Role.User)
   // @Get('test')
-  // test() {
+  // test(@User('uid') d) {
   //   return 'a';
   // }
 }

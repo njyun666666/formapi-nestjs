@@ -31,7 +31,7 @@ export class LoginGuard implements CanActivate {
       return true;
     }
 
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<Request>();
     const token = this.extractTokenFromHeader(request);
     if (!token) {
       throw new UnauthorizedException();
@@ -42,8 +42,7 @@ export class LoginGuard implements CanActivate {
         secret: this.apiConfigService.app?.jwt.secret,
       });
 
-      this.loginService.user = payload;
-      // request['user'] = payload;
+      request['user'] = payload;
     } catch {
       throw new UnauthorizedException();
     }
