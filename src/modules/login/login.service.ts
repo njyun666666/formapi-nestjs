@@ -1,11 +1,10 @@
 import { ApiConfigService } from './../../config/api-config.service';
 import { JwtPayload, LoginDto } from './dto/login.dto';
-import { Injectable, Scope, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Role } from 'src/common/enums/role.enums';
 import { sha256 } from 'src/common/utils/encoding';
 import { uuid } from 'src/common/utils/uuid';
-import { TbOrgUser } from 'src/entities/TbOrgUser.entity';
+import { TbOrgUser } from 'src/entities/TbOrgUser';
 import { DataSource } from 'typeorm';
 
 @Injectable()
@@ -18,18 +17,18 @@ export class LoginService {
 
   async login(data: LoginDto) {
     const tbOrgUser = this.dataSource.getRepository(TbOrgUser);
-    const user = await tbOrgUser.findOneBy({ Email: data.email });
+    const user = await tbOrgUser.findOneBy({ email: data.email });
     const apiKey = this.apiConfigService.app!.key.formApi;
     const password = sha256(data.password, apiKey);
 
-    if (user?.Password !== password) {
+    if (user?.password !== password) {
       throw new UnauthorizedException();
     }
 
     const payload: JwtPayload = {
-      sub: user.Name,
-      uid: user.Uid,
-      photoUrl: user.PhotoUrl,
+      sub: user.name,
+      uid: user.uid,
+      photoUrl: user.photoUrl,
       role: [],
     };
 

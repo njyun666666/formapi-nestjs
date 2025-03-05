@@ -8,6 +8,6 @@ export interface LoginDto {
 export interface JwtPayload {
   uid: string;
   sub: string;
-  photoUrl: string;
+  photoUrl: string | null;
   role: Role[];
 }
