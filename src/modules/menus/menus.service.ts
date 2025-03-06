@@ -34,7 +34,6 @@ export class MenusService {
 
     return list.map((item) => {
       const m = new MenuResponseDto(item);
-
       m.children = this.setMenus(menus, item.menuId);
       return m;
     });
