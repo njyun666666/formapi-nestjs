@@ -5,9 +5,11 @@ import { RolesGuard } from './common/guards/roles.guard';
 import { ApiConfigService } from './config/api-config.service';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
+import { TbMenu } from './entities/TbMenu';
 import { LoginController } from './modules/login/login.controller';
 import { LoginGuard } from './modules/login/login.guard';
 import { LoginModule } from './modules/login/login.module';
+import { MenusModule } from './modules/menus/menus.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
@@ -31,12 +33,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         password: apiConfigService.database?.password,
         database: apiConfigService.database?.database,
         synchronize: false,
-        entities: [__dirname + '/entities/**/*{.ts,.js}'],
+        entities: [TbMenu, __dirname + '/entities/**/*{.ts,.js}'],
         autoLoadEntities: true,
       }),
       inject: [ApiConfigService],
     }),
     LoginModule,
+    MenusModule,
   ],
   controllers: [LoginController],
   providers: [
