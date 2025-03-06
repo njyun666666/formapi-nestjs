@@ -6,4 +6,5 @@ export enum MenuEnum {
   OrgOrg = 'b607cd761d59e53ac20df9a8d416e6f7',
   OrgDept = 'f299178acaaacd49f8b488ccf38218ff',
   OrgUser = '191a783fc56e2ee5d9f9d39bef4d84ea',
+  Test = 'test',
 }

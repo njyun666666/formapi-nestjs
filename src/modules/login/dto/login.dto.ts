@@ -11,6 +11,16 @@ export class LoginDto {
   password: string;
 }
 
+export interface TokenResponseDto {
+  access_token: string;
+  refresh_token: string;
+}
+
+export class RefreshTokenDto {
+  @IsNotEmpty()
+  refresh_token: string;
+}
+
 export interface JwtPayload {
   uid: string;
   sub: string;

@@ -1,5 +1,6 @@
 import { AppService } from './app.service';
 import { CommonModule } from './common/common.module';
+import { MenusGuard } from './common/guards/menus.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 import { ApiConfigService } from './config/api-config.service';
 import appConfig from './config/app.config';
@@ -46,6 +47,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: MenusGuard,
     },
     AppService,
   ],
