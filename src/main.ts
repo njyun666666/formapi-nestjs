@@ -1,5 +1,10 @@
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationFilter } from './common/filters/validation.filter';
+import {
+  BadRequestException,
+  ValidationError,
+  ValidationPipe,
+} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 async function bootstrap() {
@@ -8,8 +13,12 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
+      exceptionFactory: (validationErrors: ValidationError[] = []) => {
+        return new BadRequestException(validationErrors);
+      },
     }),
   );
+  app.useGlobalFilters(new ValidationFilter());
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
