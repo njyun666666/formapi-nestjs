@@ -1,7 +1,7 @@
 import { MenuResponseDto } from './dto/menus.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TbMenu } from 'src/entities/TbMenu';
+import { TbMenu } from 'src/db/FormDB/entities/TbMenu';
 import { Repository } from 'typeorm';
 
 @Injectable()

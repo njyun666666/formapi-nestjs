@@ -16,9 +16,9 @@ import { MenuEnum } from 'src/common/enums/meun.enum';
 import { RoleEnum } from 'src/common/enums/role.enums';
 import { sha256 } from 'src/common/utils/encoding';
 import { uuid } from 'src/common/utils/uuid';
-import { TbMenu } from 'src/entities/TbMenu';
-import { TbOrgUser } from 'src/entities/TbOrgUser';
-import { TbRefreshToken } from 'src/entities/TbRefreshToken';
+import { TbMenu } from 'src/db/FormDB/entities/TbMenu';
+import { TbOrgUser } from 'src/db/FormDB/entities/TbOrgUser';
+import { TbRefreshToken } from 'src/db/FormDB/entities/TbRefreshToken';
 import { DataSource, LessThan, MoreThanOrEqual } from 'typeorm';
 
 @Injectable()

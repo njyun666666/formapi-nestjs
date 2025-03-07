@@ -8,5 +8,5 @@ typeorm-model-generator
  -x YjlnpNLvwfVwxtAW
  -d FormDB
  -e mysql
- -o ./src/entities
+ -o ./src/db/FormDB
 ```

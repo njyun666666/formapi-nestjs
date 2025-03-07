@@ -32,7 +32,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         password: apiConfigService.database?.password,
         database: apiConfigService.database?.database,
         synchronize: false,
-        entities: [__dirname + '/entities/**/*{.ts,.js}'],
+        entities: [__dirname + '/db/**/*{.ts,.js}'],
         autoLoadEntities: true,
       }),
       inject: [ApiConfigService],

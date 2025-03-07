@@ -1,7 +1,7 @@
 import { ApplicationListDto } from './dto/application-list.dto';
 import { Injectable } from '@nestjs/common';
 import * as _ from 'lodash';
-import { TbFormClass } from 'src/entities/TbFormClass';
+import { TbFormClass } from 'src/db/FormDB/entities/TbFormClass';
 import { DataSource } from 'typeorm';
 
 @Injectable()
