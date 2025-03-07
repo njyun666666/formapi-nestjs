@@ -5,6 +5,7 @@ import { RolesGuard } from './common/guards/roles.guard';
 import { ApiConfigService } from './config/api-config.service';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
+import { FormModule } from './modules/form/form.module';
 import { LoginController } from './modules/login/login.controller';
 import { LoginGuard } from './modules/login/login.guard';
 import { LoginModule } from './modules/login/login.module';
@@ -38,6 +39,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     LoginModule,
     MenusModule,
+    FormModule,
   ],
   controllers: [LoginController],
   providers: [
