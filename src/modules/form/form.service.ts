@@ -63,8 +63,6 @@ export class FormService {
       return prev;
     }, [] as string[]);
 
-    const formAuthList2 = await tbFormAuth.createQueryBuilder().getMany();
-
     const formAuthList = await tbFormAuth
       .createQueryBuilder()
       .select(':uid', 'uid')
