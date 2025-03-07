@@ -34,6 +34,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         synchronize: false,
         entities: [__dirname + '/db/**/*{.ts,.js}'],
         autoLoadEntities: true,
+        logging: apiConfigService.app?.env == 'development',
       }),
       inject: [ApiConfigService],
     }),

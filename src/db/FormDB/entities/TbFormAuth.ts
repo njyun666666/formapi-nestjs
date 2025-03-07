@@ -23,10 +23,10 @@ export class TbFormAuth {
   @Column('varchar', { name: 'TargetId', length: 50 })
   targetId: string;
 
-  @Column('bit', { name: 'Application', default: () => "'b'0''" })
+  @Column('tinyint', { name: 'Application', width: 1, default: () => "'0'" })
   application: boolean;
 
-  @Column('bit', { name: 'ReadAll', default: () => "'b'0''" })
+  @Column('tinyint', { name: 'ReadAll', width: 1, default: () => "'0'" })
   readAll: boolean;
 
   @ManyToOne(() => TbFormClass, (tbFormClass) => tbFormClass.tbFormAuths, {
