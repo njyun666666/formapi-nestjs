@@ -19,6 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: ['.env.development.local', '.env'],
       load: [appConfig, databaseConfig],
     }),
     CommonModule,
