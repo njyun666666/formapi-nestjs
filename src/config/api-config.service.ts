@@ -14,4 +14,8 @@ export class ApiConfigService {
   get database() {
     return this.configService.get<DatabaseConfig>('database');
   }
+
+  get isDebug() {
+    return this.app?.env == 'development';
+  }
 }
