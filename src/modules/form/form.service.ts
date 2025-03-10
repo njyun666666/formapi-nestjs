@@ -1,8 +1,8 @@
 import { ApplicationListDto } from './dto/application-list.dto';
-import { FormAuth } from './dto/form-auth.dto';
+import { CheckAuthResponseDto, FormAuth } from './dto/form-auth.dto';
 import { Injectable } from '@nestjs/common';
 import * as _ from 'lodash';
-import { FormClassEnum } from 'src/common/enums/form.enum';
+import { FormClassEnum, FormPageActionEnum } from 'src/common/enums/form.enum';
 import { RoleEnum } from 'src/common/enums/role.enums';
 import { TbFormAuth } from 'src/db/FormDB/entities/TbFormAuth';
 import { TbFormClass } from 'src/db/FormDB/entities/TbFormClass';
@@ -100,5 +100,33 @@ export class FormService {
     }
 
     return formAuthList;
+  }
+
+  async checkAuth(
+    uid: string,
+    formPageAction: FormPageActionEnum,
+    formClass: FormClassEnum,
+  ) {
+    const result = new CheckAuthResponseDto();
+    const form = await this.getFormAuthList(uid, formClass);
+
+    switch (formPageAction) {
+      case FormPageActionEnum.application:
+        if (form.find((x) => x.application)) {
+          result.formPageAction = [FormPageActionEnum.application];
+        }
+        break;
+
+      case FormPageActionEnum.info:
+        if (form.find((x) => x.readAll)) {
+          result.formPageAction = [FormPageActionEnum.info];
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    return result;
   }
 }
