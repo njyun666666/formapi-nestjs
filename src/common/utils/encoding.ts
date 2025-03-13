@@ -11,19 +11,21 @@ export const sha256 = (input: string, key: string) =>
 export const aes256 = (input: string, key: string) => {
   const iv = randomBytes(16);
   const cipher = createCipheriv('aes-256-ctr', Buffer.from(key), iv);
-  const encryptedText = Buffer.concat([cipher.update(input), cipher.final()]);
-  return `${encryptedText.toString('base64url')}.${iv.toString('base64url')}`;
+  const encryptedText = Buffer.concat([
+    iv,
+    cipher.update(input),
+    cipher.final(),
+  ]);
+  return encryptedText.toString('base64url');
 };
 
 export const aes256Decrypt = (encryptedText: string, key: string) => {
-  const [text, iv] = encryptedText.split('.');
-  const decipher = createDecipheriv(
-    'aes-256-ctr',
-    Buffer.from(key),
-    Buffer.from(iv, 'base64url'),
-  );
+  const buffer = Buffer.from(encryptedText, 'base64url');
+  const iv = buffer.subarray(0, 16);
+  const text = buffer.subarray(16);
+  const decipher = createDecipheriv('aes-256-ctr', Buffer.from(key), iv);
   const decryptedText = Buffer.concat([
-    decipher.update(Buffer.from(text, 'base64url')),
+    decipher.update(text),
     decipher.final(),
   ]);
   return decryptedText.toString('utf8');
