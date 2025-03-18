@@ -2,8 +2,8 @@ import { TbOrgDept } from './TbOrgDept';
 import { TbOrgUser } from './TbOrgUser';
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 
-@Index('Uid', ['uid'], {})
 @Index('DeptId', ['deptId'], {})
+@Index('Uid', ['uid'], {})
 @Entity('TbOrgDeptUser', { schema: 'FormDB' })
 export class TbOrgDeptUser {
   @Column('varchar', { primary: true, name: 'DeptId', length: 50 })

@@ -9,6 +9,9 @@ export class TbFormClass {
   @Column('varchar', { name: 'GroupId', length: 50 })
   groupId: string;
 
+  @Column('varchar', { name: 'SerialNoSetting', nullable: true, length: 255 })
+  serialNoSetting: string | null;
+
   @OneToMany(() => TbFormAuth, (tbFormAuth) => tbFormAuth.formClass2)
   tbFormAuths: TbFormAuth[];
 }

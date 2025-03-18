@@ -1,9 +1,9 @@
 import { TbOrgDeptUser } from './TbOrgDeptUser';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 
-@Index('Idx_RootDeptId_DeptId', ['rootDeptId', 'deptId'], {})
 @Index('Idx_ParentDeptId', ['parentDeptId'], {})
 @Index('Idx_RootDeptId', ['rootDeptId'], {})
+@Index('Idx_RootDeptId_DeptId', ['rootDeptId', 'deptId'], {})
 @Entity('TbOrgDept', { schema: 'FormDB' })
 export class TbOrgDept {
   @Column('varchar', { primary: true, name: 'DeptId', length: 50 })
